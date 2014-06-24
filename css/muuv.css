@@ -1,0 +1,26 @@
+.jumbotron{
+	background: url(../images/stripe.png);
+	background-clip: hidden;	
+	height:250px;	
+	border-bottom: 1px rgb(230,230,230) solid ;
+	margin-top: 50px;
+}
+
+.jumbotron *{
+	color: white;
+	text-shadow:0px 0px 15px gray;
+	font-weight: lighter;
+	margin-bottom: 0;
+}
+
+.jumbotron h2{
+	margin-top: 0;
+}
+
+#waypoint{
+	background: url(../images/waypoint.png);
+	background-size: float: left;
+	background-position: 0px -100px;
+	height: 250px;
+
+}
