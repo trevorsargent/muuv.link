@@ -1,31 +1,115 @@
-Muuv=function(){
+Muuv = function() {
 
 }
 
-Muuv.Person=function(){
-	this.location=newLocation();
-	this.isDriver=false;
-	this.seatsAvailable=0;
-	this.places
+Muuv.Person = function() {
+    this.location = newLocation();
+    this.isDriver = false;
+    this.seatsAvailable = 0;
+    this.places
 }
 
-Muuv.Location=function(){
-	this.locLat=0.0;
-	this.locLong=0.0;
-	this.locText="";
+Muuv.Location = function() {
+    this.locLat = 0.0;
+    this.locLong = 0.0;
+    this.locText = "";
 
-	//takesanotherlocationandreturnsthe'crowflies'distancetothatlocation.
-	//thisistobeusedifthegoogleapiisunavailable
-	this.calcCrow=function(that){
-		returnMath.sqrt(
-			Math.pow((this.locLat-that.locLat),2)+
-			Math.pow((this.locLong-that.locLong),2)
-			);
-	}
+    //takesanotherlocationandreturnsthe'crowflies'distancetothatlocation.
+    //thisistobeusedifthegoogleapiisunavailable
+    this.calcCrow = function(that) {
+        returnMath.sqrt(
+            Math.pow((this.locLat - that.locLat), 2) +
+            Math.pow((this.locLong - that.locLong), 2)
+        );
+    }
 
-	//takesanotherlocatonandreturnsthegoogledrivetimedistancetothatlocaiton
-	this.calcTime=function(that){
+    //takesanotherlocatonandreturnsthegoogledrivetimedistancetothatlocaiton
+    this.calcTime = function(that) {
 
-	}
+    }
 
 }
+
+addRow = function() {
+    $('<div class="row" id="row_' + index + '"> <div class="col-sm-1"> <button class = "btn btn-default btn-block removePerson" id="'+index+'">x</button> </div> <div class="form-group col-sm-4"> <input type="text" class="form-control" id="name_' + index + '" placeholder="name"> </div> <div class=" form-group col-sm-3"  id="driverButton_' + index + '"> <button class="btn btn-info driverButton btn-block" id = "'+ index +'">driver</button> </div> <div class="form-group col-sm-3 changerBox hidden" id = "changerBox_'+ index +'"> <div class="input-group"> <span class="input-group-addon btn-danger numMinus" id = "' + index + '">x</span> <input type="text" value = "1" class="form-control" id="car_' + index + '" placeholder="blank for pasenger"> <span class="input-group-addon numPlus" id="' + index + '">+</span> </div> </div> <div class="form-group col-sm-4"> <input type="text" class="form-control" id="loc_' + index + '" placeholder="location"> </div>  </div>').insertBefore("#placeBefore");
+    index++;
+}
+
+// hideDriverButton = function(e){
+// 	$(e).addClass('hidden');
+// 	$('#changerBox_' + e.id).removeClass('hidden');
+// }
+
+
+index = 0;
+
+$(document).ready(function() {
+
+    addRow();
+
+    $('#newPersonButton').click(function() {
+        addRow();
+        $("html, body").animate({ scrollTop: $(document).height() }, 500);
+    });
+
+    $('body').on('click', '.numMinus', function() {
+
+        box = $('#car_' + this.id);
+
+        if($(this).html() == 'x'){
+        	$('#car_' + this.id).html("");
+        	$('#driverButton_' + this.id).removeClass('hidden');
+    		$('#changerBox_' + this.id).addClass('hidden');
+        }
+       
+        if (box.val() == "") {
+            return;
+        }
+        val = parseInt(box.val());
+        box.val(val - 1);
+        if (box.val() < 1) {
+            box.val(1);
+        }
+    });
+
+    $('body').on('click', '.numPlus', function() {
+
+        box = $('#car_' + this.id);
+
+        if (box.val() == "") {
+            box.val(1);
+            return;
+        }
+        val = parseInt(box.val());
+        box.val(val + 1);
+
+    });
+
+    $('body').on('click', '.numPlus, .numMinus', function(){
+    	num = this.id;
+
+    	button = $('#'+num+'.numMinus');
+    	val = $('#car_'+num).val();
+    	val = parseInt(val);
+    	if(val == 1){
+    		button.html("x");
+    		button.addClass("btn-danger");
+    	}else{
+    		button.html("-");
+    		button.removeClass("btn-danger");
+    	}
+
+    })
+
+    $('body').on('click', '.driverButton', function(e){
+    	e.preventDefault();
+    	$('#driverButton_' + this.id).addClass('hidden');
+    	$('#changerBox_' + this.id).removeClass('hidden');
+    });
+
+    $('body').on('click', '.removePerson', function(e){
+    	e.preventDefault();
+    	$('#row_'+this.id).remove();
+    })
+
+});

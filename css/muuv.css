@@ -3,7 +3,16 @@
 	background-clip: hidden;	
 	height:250px;	
 	border-bottom: 1px rgb(230,230,230) solid ;
-	margin-top: 50px;
+	/*margin-top: 50px;*/
+	-webkit-animation: barberPole 7s linear;
+	-webkit-animation-iteration-count: infinite;
+	-animation: barberPole 7s linear;
+	-animation-iteration-count: infinite;
+	/*background-position: 250px;*/
+}
+
+.navbar{
+	margin-bottom: 0px;
 }
 
 .jumbotron *{
@@ -23,4 +32,17 @@
 	background-position: 0px -100px;
 	height: 250px;
 
+}
+
+.numMinus{
+}
+
+@-webkit-keyframes barberPole {
+	0% {background-position: 0px 0px;}
+	100% {background-position: 199px 0px;}
+}
+
+@-keyframes barberPole {
+	0% {background-position: 0px 0px;}
+	100% {background-position: 199px 0px;}
 }
