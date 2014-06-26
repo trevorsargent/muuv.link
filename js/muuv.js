@@ -40,7 +40,7 @@ addRow = function() {
 // }
 
 
-index = 10;
+index = 0;
 numDeleted = 0;
 
 $(document).ready(function() {
@@ -123,7 +123,7 @@ $(document).ready(function() {
     	// OK HERE WE GO!
     	var personIndex = 0;
     	people = new Array(index-(numDeleted+10));
-    	for(var i = 10; i < index; i++){
+    	for(var i = 0; i < index; i++){
     		if($("#row_"+i)){
     			people[personIndex] = new Muuv.Person();
     			people[personIndex].name = $('#name_'+i).val();
@@ -137,6 +137,11 @@ $(document).ready(function() {
     		}
     	}
     	var numPeople = personIndex;
+    });
+
+    $('#destinationText').blur(function(){
+    	var text = $('#destinationText').val().replace(' ', "+");
+    	$('#googleMap').attr('src') = text;
     });
 
 });
