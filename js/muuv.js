@@ -13,8 +13,8 @@ Muuv.Location = function() {
     this.locLong = 0.0;
     this.locText = "";
 
-    //takesanotherlocationandreturnsthe'crowflies'distancetothatlocation.
-    //thisistobeusedifthegoogleapiisunavailable
+    //takes another location and returns the 'crowflies' distance to that location.
+    //this is to be used if the google api is unavailable
     this.calcCrow = function(that) {
         returnMath.sqrt(
             Math.pow((this.locLat - that.locLat), 2) +
@@ -22,7 +22,7 @@ Muuv.Location = function() {
         );
     }
 
-    //takesanotherlocatonandreturnsthegoogledrivetimedistancetothatlocaiton
+    //takes another locaton and returns the google drive time to that locaiton
     this.calcTime = function(that) {
 
     }
@@ -40,7 +40,7 @@ addRow = function() {
 // }
 
 
-index = 0;
+index = 10;
 numDeleted = 0;
 
 $(document).ready(function() {
@@ -122,12 +122,12 @@ $(document).ready(function() {
 
     	// OK HERE WE GO!
     	var personIndex = 0;
-    	people = new Array(index-numDeleted);
-    	for(var i = 0; i < index; i++){
+    	people = new Array(index-(numDeleted+10));
+    	for(var i = 10; i < index; i++){
     		if($("#row_"+i)){
     			people[personIndex] = new Muuv.Person();
     			people[personIndex].name = $('#name_'+i).val();
-    			if($("#car_"+i).val().length){
+    			if($("#car_"+i).val().length > 0){
 	    			people[personIndex].isDriver = true;
 	    			people[personIndex].seatsAvailable = parseInt($('#car_'+i).val());    				
     			}
@@ -135,11 +135,8 @@ $(document).ready(function() {
     			people[personIndex].location.text = $('#loc_'+i).val();
     			personIndex++;
     		}
-    		
-
     	}
-
-
+    	var numPeople = personIndex;
     });
 
 });
